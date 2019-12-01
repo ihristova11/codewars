@@ -1,7 +1,8 @@
 #include <iostream>
 #include <cmath>
+#include <iomanip>
 
-const double PI = 3.14159265358979323846;
+const double PI = 3.14;
 const double XR = 5;
 const double YR = 2;
 
@@ -27,12 +28,12 @@ double calculateLineEquation(
 	{
 		x = (xDiff * yL + yDiff * xOut - xDiff * yOut) / yDiff;
 	}
-	
+
 	if (yDiff == 0)
 	{
 		distance = fabs(xL - xIn);
 	}
-	else if(xDiff == 0)
+	else if (xDiff == 0)
 	{
 		distance = fabs(yL - yIn);
 	}
@@ -55,7 +56,6 @@ double calculateLineEquation(
 
 double findDistanceBetweenPoints(double x1, double y1, double x2, double y2)
 {
-	std::cout << "distance = " << sqrt(pow((x1 - x2), 2.0) + pow((y1 - y2), 2.0)) << std::endl;
 	return findApproximateDistance(sqrt(pow((x1 - x2), 2.0) + pow((y1 - y2), 2.0)));
 }
 
@@ -67,12 +67,8 @@ bool isInRectangle(double x, double y)
 double findIntersectionDistance(double xIn, double yIn, double xOut, double yOut)
 {
 	double distance = 0;
-
-	// TODO CHECK ZERO DEVISION
-
 	double xDiff = xIn - xOut;
 	double yDiff = yIn - yOut;
-	// check in which quadrant is (xOut, yOut)
 
 	if (xOut >= 0) // I or IV quadrant
 	{
@@ -96,10 +92,9 @@ double findIntersectionDistance(double xIn, double yIn, double xOut, double yOut
 			distance = calculateLineEquation(xDiff, yDiff, xOut, yOut, xIn, yIn, -1 * XR, -1 * YR);
 		}
 	}
-	std::cout << "distance = " << distance << std::endl;
+
 	return findApproximateDistance(distance);
 }
-
 
 int main()
 {
@@ -120,39 +115,26 @@ int main()
 
 		if (isFirstInR && isSecondInR)
 		{
-			std::cout << "isFirstInR && isSecondInR" << std::endl;
-			std::cout << x1 << " " << y1 << " " << x2 << " " << y2 << std::endl;
-
 			distance = findDistanceBetweenPoints(x1, y1, x2, y2);
-			std::cout << "approx distance = " << distance << std::endl;
-
 		}
 		else if (isFirstInR && !isSecondInR)
 		{
-			std::cout << "isFirstInR && !isSecondInR" << std::endl;
-			std::cout << x1 << " " << y1 << " " << x2 << " " << y2 << std::endl;
-
 			distance = findIntersectionDistance(x1, y1, x2, y2);
-			std::cout << "approx distance = " << distance << std::endl;
 		}
 		else if (!isFirstInR && isSecondInR)
 		{
-			std::cout << "!isFirstInR && isSecondInR" << std::endl;
-			std::cout << x1 << " " << y1 << " " << x2 << " " << y2 << std::endl;
-
 			distance = findIntersectionDistance(x2, y2, x1, y1);
-			std::cout << "approx distance = " << distance << std::endl;
 		}
 
 		sum += distance;
-		std::cout << "sum = " << sum << std::endl;
 
 		x1 = x2;
 		y1 = y2;
 		isFirstInR = isSecondInR;
 	}
 
-	std::cout << sum << std::endl;
+	std::cout << std::fixed;
+	std::cout << std::setprecision(3) << sum << std::endl;
 
 	return 0;
 }
