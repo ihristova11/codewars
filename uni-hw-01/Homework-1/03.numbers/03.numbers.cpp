@@ -1,32 +1,64 @@
 #include <iostream>
-using namespace std;
 
-void generateNumbers(char* numbersArr, int arrLen, char* digits, int digitsLen, int a, int b)
+bool isInDigits(int d, int* digits, int l)
 {
-	for (int i = 0; i < digitsLen; i++)
+	for (int i = 0; i < l; i++)
 	{
-		
+		if (digits[i] == d)
+		{
+			return true;
+		}
 	}
+	return false;
+}
+
+int isValid(int n, int* digits, int l)
+{
+	int rem = 0;
+	int num = n;
+	while (n > 0)
+	{
+		rem = n % 10;
+		if (isInDigits(rem, digits, l))
+		{
+			n /= 10;
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	if (n == 0)
+	{
+		return num;
+	}
+
+	return -1;
 }
 
 int main()
 {
-	// generate all numbers with the digits given 
-	// check whether the number is in the interval
-	// print in ascending number
-
 	const int MaxLength = 1000;
 
-	int a, b, n, num;
+	int a, b, n, res;
 	int digits[10];
-	int numbers[MaxLength];
-
-	cin >> a >> b;
-	cin >> n;
+	
+	std::cin >> a >> b;
+	std::cin >> n;
 
 	for (int i = 0; i < n; i++)
 	{
-		cin >> digits[i];
+		std::cin >> digits[i];
+	}
+
+	for (int i = a; i <= b; i++)
+	{
+		res = isValid(i, digits, n);
+		if (res != -1)
+		{
+			std::cout << res << " ";
+		}
 	}
 
 	return 0;

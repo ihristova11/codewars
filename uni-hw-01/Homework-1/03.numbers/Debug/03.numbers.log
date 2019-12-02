@@ -1,4 +1,2 @@
 ﻿  03.numbers.cpp
-D:\Git\codewars-problems\uni-hw-01\Homework-1\03.numbers\03.numbers.cpp(22,6): warning C4101:  'numbers': unreferenced local variable
-D:\Git\codewars-problems\uni-hw-01\Homework-1\03.numbers\03.numbers.cpp(20,15): warning C4101:  'num': unreferenced local variable
   03.numbers.vcxproj -> D:\Git\codewars-problems\uni-hw-01\Homework-1\Debug\03.numbers.exe
