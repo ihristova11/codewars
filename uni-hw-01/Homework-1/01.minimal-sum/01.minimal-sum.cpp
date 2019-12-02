@@ -2,25 +2,38 @@
 
 int main()
 {
-	int n;
-
+	int n, temp = 0, min = INT_MAX;
+	int divisors[3] = { 0 };
 	std::cin >> n;
-	int i;
 
-	// minimal sum = sum of the prime factors 
-	for (i = 2; i * i <= n; i++)
+	for (int j = 1; j < n; j++)
 	{
-		while (n % i == 0)
+		if (n % j == 0)
 		{
-			std::cout << i << " " << std::endl;
+			for (int k = j; k < n / j; k++)
+			{
+				temp = 0;
+				if ((n / j) % k == 0)
+				{
+					temp += (j + k + n / k);
 
-			n /= i;
+					if (min > temp)
+					{
+						divisors[0] = j;
+						divisors[1] = k;
+						divisors[2] = n / k;
+
+						min = temp;
+					}
+
+				}
+			}
 		}
 	}
 
-	if (n > 1)
+	for (int i = 0; i < 3; i++)
 	{
-		std::cout << n << " " << std::endl;
+		std::cout << divisors[i] << " ";
 	}
 
 	return 0;
