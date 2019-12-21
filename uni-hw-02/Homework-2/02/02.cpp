@@ -8,20 +8,16 @@ const int MaxSentenceLength = 4097;
 
 void replaceWord(int endIndex, int wordToBeReplacedLength, char* wordToReplaceWith, char* sentence)
 {
-	int wordLen = strlen(wordToReplaceWith);
-	int startIndex = endIndex - wordLen;
+	int startIndex = endIndex - wordToBeReplacedLength;
+	//int toEnd[MaxLength] = 
 
-	for (int i = 0; i < wordLen; i++)
-	{
-		sentence[startIndex + i] = wordToReplaceWith[i];
-	}
+	strncpy(sentence + startIndex, wordToReplaceWith, wordToBeReplacedLength);
 }
 
-int isWordInDictionary(char* word, char(*keys)[MaxLength])
+int isWordInDictionary(char* word, char(*keys)[MaxLength], int n)
 {
-	int len = strlen(word); //should be keys length
 
-	for (int i = 0; i < len; i++)
+	for (int i = 0; i < n; i++)
 	{
 		if (strcmp(keys[i], word) == 0)
 		{
@@ -33,20 +29,20 @@ int isWordInDictionary(char* word, char(*keys)[MaxLength])
 }
 
 
-void modifySentence(char* sentence, char(*keys)[MaxLength], char(*values)[MaxLength])
+void modifySentence(char* sentence, char(*keys)[MaxLength], char(*values)[MaxLength], int n)
 {
 	char wordFound[MaxLength];
 	int ind = 0, indexFound = -1, wordInd = 0;
 	while (sentence[ind] != '\0')
 	{
-		while (sentence[ind] != ' ')
+		while ((sentence[ind] >= 'a' && sentence[ind] <= 'z') || (sentence[ind] >= 'A' && sentence[ind] <= 'Z'))
 		{
 			wordFound[wordInd] = sentence[ind];
 			++ind;
 			++wordInd;
 		}
 		wordFound[wordInd] = '\0';
-		indexFound = isWordInDictionary(wordFound, keys);
+		indexFound = isWordInDictionary(wordFound, keys, n);
 		if (indexFound != -1)
 		{
 			replaceWord(ind, wordInd, values[indexFound], sentence);
@@ -59,9 +55,6 @@ void modifySentence(char* sentence, char(*keys)[MaxLength], char(*values)[MaxLen
 
 int main()
 {
-	char test[10] = "pruc";
-
-
 	// dictionary
 	char keys[MaxLength][MaxLength];
 	char values[MaxLength][MaxLength];
@@ -86,7 +79,7 @@ int main()
 	cin.ignore();
 	cin.getline(sentence, MaxSentenceLength);
 
-	modifySentence(sentence, keys, values);
+	modifySentence(sentence, keys, values, n);
 
 	// print the sentence
 	cout << sentence << endl;
