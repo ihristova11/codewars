@@ -45,14 +45,15 @@ bool isResultOfConcatenation(char* a, char* b, char* c)
 
 int main()
 {
-	char a[MaxLength], 
-		b[MaxLength], 
+	char a[MaxLength],
+		b[MaxLength],
 		c[MaxLength];
+
 	cin >> a;
 	cin >> b;
 	cin >> c;
 
-	cout << (isResultOfConcatenation(a, b, c) ? "true" : "false") << endl;
+	cout << boolalpha << isResultOfConcatenation(a, b, c) << endl;
 
 	return 0;
 }
