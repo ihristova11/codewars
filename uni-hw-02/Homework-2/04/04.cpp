@@ -16,7 +16,7 @@ void swap(int* xp, int* yp)
 
 void swap(double* xp, double* yp)
 {
-	int temp = *xp;
+	double temp = *xp;
 	*xp = *yp;
 	*yp = temp;
 }
