@@ -45,7 +45,7 @@ int main()
 {
 	char a[MaxLength],
 		b[MaxLength],
-		c[MaxLength];
+		c[2 * MaxLength];
 
 	std::cin >> a;
 	std::cin >> b;
