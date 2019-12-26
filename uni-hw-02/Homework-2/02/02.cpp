@@ -1,6 +1,10 @@
 #include <iostream>
 #include <cstring>
 
+// ignore VS c/c++ preprocessor strncpy() warning 
+// (https://docs.microsoft.com/en-us/cpp/preprocessor/warning?redirectedfrom=MSDN&view=vs-2019)
+#pragma warning(disable:4996) 
+
 const int MaxLength = 100;
 const int MaxSentenceLength = 4097;
 
