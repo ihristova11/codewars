@@ -1,8 +1,6 @@
 #include <iostream>
 #include <cstring>
 
-using namespace std;
-
 const int MinsInHour = 60;
 const int MaxLength = 20;
 const int NMax = 100;
@@ -27,7 +25,7 @@ void bubbleSort(double* x, double* y, int* minutes, int n)
 {
 	int i, j;
 	for (i = 0; i < n - 1; i++)
-
+	{
 		for (j = 0; j < n - i - 1; j++)
 		{
 			if (minutes[j] > minutes[j + 1])
@@ -38,6 +36,7 @@ void bubbleSort(double* x, double* y, int* minutes, int n)
 				swap(&y[j], &y[j + 1]);
 			}
 		}
+	}
 }
 
 int convertToMinutes(int hours, int minutes)
@@ -66,7 +65,7 @@ void parseArguments(char* xArg, char* yArg, char* hoursArg, char* minutesArg, do
 
 double findDistanceBetweenTwoPoints(double x1, double y1, double x2, double y2)
 {
-	return sqrt(pow(2.0, (x1 - x2)) + pow(2, (y1 - y2)));
+	return sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)));
 }
 
 bool isOnPlace(double* x, double* y, int n)
@@ -100,15 +99,15 @@ int main()
 	char hoursArg[MinLength];
 	char minutesArg[MinLength];
 
-	cin >> n;
-	cin.ignore();
+	std::cin >> n;
+	std::cin.ignore();
 
 	for (int i = 0; i < n; i++)
 	{
-		cin.getline(xArg, 10, ',');
-		cin.getline(yArg, 10, ',');
-		cin.getline(hoursArg, 10, ':');
-		cin.getline(minutesArg, 10, '\n');
+		std::cin.getline(xArg, 10, ',');
+		std::cin.getline(yArg, 10, ',');
+		std::cin.getline(hoursArg, 10, ':');
+		std::cin.getline(minutesArg, 10, '\n');
 
 		parseArguments(xArg, yArg, hoursArg, minutesArg, x, y, minutes, i);
 
@@ -119,8 +118,10 @@ int main()
 		strcpy_s(minutesArg, "");
 	}
 
-	cout << calculateDistance(x, y, n) << endl;
-	cout << isOnPlace(x, y, n) << endl;
+	bubbleSort(x, y, minutes, n);
+
+	std::cout << "Distance: " << calculateDistance(x, y, n) << std::endl;
+	std::cout << "Parked on the same place: " << (isOnPlace(x, y, n) ? "Yes" : "No") << std::endl;
 
 	return 0;
 }
