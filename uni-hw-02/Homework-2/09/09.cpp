@@ -17,7 +17,7 @@ int findMinCol(int(*matrix)[MaxRC], int cols, int col)
 
 	for (int i = 0; i < cols; i++)
 	{
-		min = min >= * (*(matrix + i) + col) ? *(*(matrix + i) + col) : min;
+		min = min > * (*(matrix + i) + col) ? *(*(matrix + i) + col) : min;
 	}
 
 	return min;
@@ -28,13 +28,13 @@ int findMaxRow(int(*matrix)[MaxRC], int rows, int row)
 	int max = INT_MIN;
 	for (int i = 0; i < rows; i++)
 	{
-		max = max <= *(*(matrix + row) + i) ? *(*(matrix + row) + i) : max;
+		max = max < *(*(matrix + row) + i) ? *(*(matrix + row) + i) : max;
 	}
 
 	return max;
 }
 
-bool checkElement(int el, int maxRow, int* minCols, int col)
+bool isSaddlePoint(int el, int maxRow, int* minCols, int col)
 {
 	int minCol = minCols[col];
 
@@ -67,7 +67,7 @@ void findSaddlePoint(int(*matrix)[MaxRC], int m, int n)
 		maxRow = findMaxRow(matrix, m, i);
 		for (int j = 0; j < n; j++)
 		{
-			if (checkElement(*(*(matrix + i) + j), maxRow, minCols, j))
+			if (isSaddlePoint(*(*(matrix + i) + j), maxRow, minCols, j))
 			{
 				hasFound = true;
 				printCoordinates(i, j);
