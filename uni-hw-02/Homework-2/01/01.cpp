@@ -1,8 +1,6 @@
 #include <iostream>
 #include <cstring>
 
-using namespace std;
-
 const int MaxLength = 256;
 
 bool isInArray(char ch, char* arr)
@@ -49,11 +47,11 @@ int main()
 		b[MaxLength],
 		c[MaxLength];
 
-	cin >> a;
-	cin >> b;
-	cin >> c;
+	std::cin >> a;
+	std::cin >> b;
+	std::cin >> c;
 
-	cout << boolalpha << isResultOfConcatenation(a, b, c) << endl;
+	std::cout << std::boolalpha << isResultOfConcatenation(a, b, c) << std::endl;
 
 	return 0;
 }
