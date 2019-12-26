@@ -1,7 +1,5 @@
 #include <iostream>
 
-using namespace std;
-
 const int MaxLength = 23;
 
 int sumRow(int(*matrix)[MaxLength], int n, int row)
@@ -28,21 +26,26 @@ bool isDominant(int(*matrix)[MaxLength], int n)
 	return flag;
 }
 
+void readMatrix(int(*matrix)[MaxLength], int m, int n)
+{
+	for (int i = 0; i < m; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			std::cin >> *(*(matrix + i) + j);
+		}
+	}
+}
+
 int main()
 {
 	int matrix[MaxLength][MaxLength];
 	int n;
-	cin >> n;
+	std::cin >> n;
 
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < n; j++)
-		{
-			cin >> matrix[i][j];
-		}
-	}
+	readMatrix(matrix, n, n);
 
-	cout << boolalpha << isDominant(matrix, n) << endl;
+	std::cout << std::boolalpha << isDominant(matrix, n) << std::endl;
 
 	return 0;
 }

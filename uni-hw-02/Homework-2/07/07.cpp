@@ -1,8 +1,6 @@
 #include <iostream>
 #include <cstring>
 
-using namespace std;
-
 const int MaxLength = 1001;
 
 void print(char* word, int n, int l)
@@ -11,9 +9,9 @@ void print(char* word, int n, int l)
 	{
 		for (int len = start; len < start + l; len++)
 		{
-			cout << word[len];
+			std::cout << word[len];
 		}
-		cout << endl;
+		std::cout << std::endl;
 	}
 }
 
@@ -32,8 +30,8 @@ int main()
 {
 	int l;
 	char word[MaxLength];
-	cin.getline(word, MaxLength - 1);
-	cin >> l;
+	std::cin.getline(word, MaxLength - 1);
+	std::cin >> l;
 
 	findAll(word, strlen(word), l);
 

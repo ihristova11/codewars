@@ -1,14 +1,12 @@
 #include <iostream>
 #include <cstring>
 
-using namespace std;
-
 const int MaxNumber = 4;
 const int MaxRC = 50; // max row-col length
 
 void printCoordinates(int x, int y)
 {
-	cout << "(" << x << ", " << y << ")" << endl;
+	std::cout << "(" << x << ", " << y << ")" << std::endl;
 }
 
 int findMinCol(int(*matrix)[MaxRC], int cols, int col)
@@ -77,7 +75,18 @@ void findSaddlePoint(int(*matrix)[MaxRC], int m, int n)
 
 	if (!hasFound)
 	{
-		cout << "no such point found" << endl;
+		std::cout << "no such point found" << std::endl;
+	}
+}
+
+void readMatrix(int(*matrix)[MaxRC], int m, int n)
+{
+	for (int i = 0; i < m; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			std::cin >> *(*(matrix + i) + j);
+		}
 	}
 }
 
@@ -88,21 +97,13 @@ int main()
 	int m, n;
 	int matrix[MaxRC][MaxRC];
 
-	cin.getline(a, MaxNumber, ',');
-	cin.getline(b, MaxNumber);
+	std::cin.getline(a, MaxNumber, ',');
+	std::cin.getline(b, MaxNumber);
 
 	m = atoi(a);
 	n = atoi(b);
 
-	// read the matrix
-	for (int i = 0; i < m; i++)
-	{
-		for (int k = 0; k < n; k++)
-		{
-			cin >> matrix[i][k];
-		}
-	}
-
+	readMatrix(matrix, m, n);
 	findSaddlePoint(matrix, m, n);
 
 	return 0;

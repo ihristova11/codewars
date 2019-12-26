@@ -1,8 +1,6 @@
 #include <iostream>
 #include <cstring>
 
-using namespace std;
-
 const int MaxLength = 20;
 
 void swap(int* x, int* y)
@@ -32,9 +30,9 @@ void printMatrix(int(*matrix)[MaxLength], int m, int n)
 	{
 		for (int j = 0; j < n; j++)
 		{
-			cout << *(*(matrix + i) + j) << " ";
+			std::cout << *(*(matrix + i) + j) << " ";
 		}
-		cout << endl;
+		std::cout << std::endl;
 	}
 }
 
@@ -44,7 +42,7 @@ void readMatrix(int(*matrix)[MaxLength], int m, int n)
 	{
 		for (int j = 0; j < n; j++)
 		{
-			cin >> *(*(matrix + i) + j);
+			std::cin >> *(*(matrix + i) + j);
 		}
 	}
 }
@@ -54,7 +52,7 @@ int main()
 	int matrix[MaxLength][MaxLength];
 	int m, n;
 
-	cin >> m >> n;
+	std::cin >> m >> n;
 
 	readMatrix(matrix, m, n);
 	modifyMatrix(matrix, m, n);
