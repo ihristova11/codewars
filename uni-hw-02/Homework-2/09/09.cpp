@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstring>
 
-const int MaxNumber = 4;
 const int MaxRC = 50; // max row-col length
 
 void printCoordinates(int x, int y)
@@ -92,16 +91,10 @@ void readMatrix(int(*matrix)[MaxRC], int m, int n)
 
 int main()
 {
-	char a[MaxNumber];
-	char b[MaxNumber];
 	int m, n;
 	int matrix[MaxRC][MaxRC];
 
-	std::cin.getline(a, MaxNumber, ',');
-	std::cin.getline(b, MaxNumber);
-
-	m = atoi(a);
-	n = atoi(b);
+	std::cin >> m >> n;
 
 	readMatrix(matrix, m, n);
 	findSaddlePoint(matrix, m, n);
