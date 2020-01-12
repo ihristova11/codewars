@@ -120,14 +120,15 @@ char* replace(char* str, char* pattern, char* replaced)
 			if (flag)
 			{
 				for (int j = 0; j < lenReplaced; ++j)
+				{
 					result[newTextLength++] = replaced[j]; // add replaced word in the result
+				}
 				i += lenPattern - 1; // skip the pattern (-1 cuz of the loop step = ++i)
 			}
 			else
 			{
 				result[newTextLength++] = str[i];
 			}
-
 		}
 		else
 		{
@@ -145,8 +146,8 @@ int main()
 	char str[] = "one one someOne one One some one One one.soone  One";
 	char word1[] = "One";
 
-	char word2[] = "dogs";
-	//cout << "result:" << remove(str, word1) <<"|"<< endl;
-	cout << replace(str, word1, word2) << endl;
+	char word2[] = "nenenennenene";
+	cout << "remove():" << remove(str, word1) << "|" << endl;
+	cout << "replace():" << replace(str, word1, word2) << endl;
 	return 0;
 }

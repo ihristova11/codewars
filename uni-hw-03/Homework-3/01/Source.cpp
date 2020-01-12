@@ -10,8 +10,8 @@ int main()
 
 	int* start = new int[n];
 	int* end = new int[n];
-	int* lectures = new int[n]; // [i] - i-тата по край лекция
-	int* checkpoints = new int[n]; // [i] - колко най-много лекции мога да посетя до end[i]
+	int* lectures = new int[n]; // [i] - i-th lecture
+	int* checkpoints = new int[n]; // [i] - max lectures that can be visited till end[i]
 
 	for (unsigned i = 0; i < n; ++i)
 	{
@@ -28,14 +28,14 @@ int main()
 
 	int answer = 0;
 
-	for (unsigned i = 0; i < n; ++i) // до end [lectures [i]]
+	for (unsigned i = 0; i < n; ++i) // end [lectures [i]]
 	{
-		checkpoints[i] = 1; // поне лекция lectures [i] може да бъде посетена
-		for (unsigned j = 0; j < i; ++j) // нека опитаме да посетим лекция lectures[j] и след нея веднага лекция lectures[i]
+		checkpoints[i] = 1; // at least lectures[i] can be visited
+		for (unsigned j = 0; j < i; ++j) // try to visit lectures[j] and lectures[i]
 		{
-			if (start[lectures[i]] > end[lectures[j]]) // ако можем физически да ги посетим една след друга
+			if (start[lectures[i]] > end[lectures[j]]) // if we can visit them
 			{
-				checkpoints[i] = ((checkpoints[i] < (checkpoints[j] + 1)) ? (checkpoints[j] + 1) : checkpoints[i]); // взимаме по-оптималното решение
+				checkpoints[i] = ((checkpoints[i] < (checkpoints[j] + 1)) ? (checkpoints[j] + 1) : checkpoints[i]); // most optimal
 			}
 		}
 

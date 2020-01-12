@@ -1,43 +1,57 @@
 #include <iostream>
 using namespace std;
 
-void turn_on_line(int n);
-void turn_off_line(int n);
+// should be declared because we use them 
+// in first function implementation
+void turnOnAll(int n);
+void turnOffAll(int n);
 
-void turn_on_only(int pos)
+// turns on the first lamp only
+void turnFirstOn(int p)
 {
-	if (pos == 1)
-		cout << "+1\n";
-	else {
-		turn_on_only(pos - 1);
-		cout << "+" << pos << "\n";
-		turn_off_line(pos - 1);
+	if (p == 1)
+	{
+		cout << "+1" << endl;
+	}
+	else 
+	{
+		turnFirstOn(p - 1);
+		cout << "+" << p << endl;
+		turnOffAll(p - 1);
 	}
 }
-void turn_on_line(int n)
-{
-	switch (n) {
-	case 1:
-		cout << "+1\n";
-		break;
-	case 2:
-		cout << "+1\n+2\n";
-		break;
-	default:
-		turn_on_only(n - 1);
-		cout << "+" << n << "\n";
-		turn_on_line(n - 2);
-	}
-}
-void turn_off_line(int n)
+
+// turns on all lamps in the line
+void turnOnAll(int n)
 {
 	if (n == 1)
-		cout << "-1\n";
+	{
+		cout << "+1" << endl;
+	}
+	else if (n == 2)
+	{
+		cout << "+1" << endl << "+2" << endl;
+	}
 	else
 	{
-		turn_on_only(n - 1);
-		cout << "-" << n << "\n";
-		turn_off_line(n - 1);
+		turnFirstOn(n - 1);
+		cout << "+" << n << endl;
+		turnOnAll(n - 2);
+	}
+}
+
+// turns off all the lamps in the line
+void turnOffAll(int n)
+{
+	if (n == 1)
+	{
+		cout << "-1" << endl;
+	}
+	else
+	{
+		turnFirstOn(n - 1);
+		cout << "-" << n << endl;
+		turnOffAll(n - 1);
 	}
 }
 
@@ -45,6 +59,6 @@ int main()
 {
 	int n;
 	cin >> n;
-	turn_on_line(n);
+	turnOnAll(n);
 	return 0;
 }
