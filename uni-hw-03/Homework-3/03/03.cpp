@@ -1,8 +1,6 @@
 #include <iostream>
 #include <cstring>
 
-using namespace std;
-
 bool isAlphaNumeric(char a)
 {
 	return((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'));
@@ -141,13 +139,14 @@ char* replace(char* str, char* pattern, char* replaced)
 
 int main()
 {
-	// test examples 
+	// dummy test examples 
 	//char str[] = "I love math cats and programming.";
 	char str[] = "one one someOne one One some one One one.soone  One";
 	char word1[] = "One";
 
 	char word2[] = "nenenennenene";
-	cout << "remove():" << remove(str, word1) << "|" << endl;
-	cout << "replace():" << replace(str, word1, word2) << endl;
+	std::cout << "remove():" << remove(str, word1) << "|" << std::endl;
+	std::cout << "replace():" << replace(str, word1, word2) << std::endl;
+
 	return 0;
 }

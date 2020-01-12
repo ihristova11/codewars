@@ -1,5 +1,4 @@
 #include <iostream>
-using namespace std;
 
 // should be declared because we use them 
 // in first function implementation
@@ -7,17 +6,19 @@ void turnOnAll(int n);
 void turnOffAll(int n);
 
 // turns on the first lamp only
-void turnFirstOn(int p)
+void turnFirstOn(int current)
 {
-	if (p == 1)
+	if (current == 1)
 	{
-		cout << "+1" << endl;
+		std::cout << "+1" << std::endl;
 	}
-	else 
+	else
 	{
-		turnFirstOn(p - 1);
-		cout << "+" << p << endl;
-		turnOffAll(p - 1);
+		// recurrence call to turn on the next lamp
+		turnFirstOn(current - 1);
+
+		std::cout << "+" << current << std::endl;
+		turnOffAll(current - 1);
 	}
 }
 
@@ -26,16 +27,18 @@ void turnOnAll(int n)
 {
 	if (n == 1)
 	{
-		cout << "+1" << endl;
+		std::cout << "+" << n << std::endl;
 	}
 	else if (n == 2)
 	{
-		cout << "+1" << endl << "+2" << endl;
+		std::cout << "+1" << std::endl << "+2" << std::endl;
 	}
 	else
 	{
 		turnFirstOn(n - 1);
-		cout << "+" << n << endl;
+		std::cout << "+" << n << std::endl;
+
+		// turn on all the other lamps in the line reccurently
 		turnOnAll(n - 2);
 	}
 }
@@ -45,12 +48,14 @@ void turnOffAll(int n)
 {
 	if (n == 1)
 	{
-		cout << "-1" << endl;
+		std::cout << "-" << n << std::endl;
 	}
 	else
 	{
 		turnFirstOn(n - 1);
-		cout << "-" << n << endl;
+		std::cout << "-" << n << std::endl;
+
+		// turn off all the other lamps in the line recurrently
 		turnOffAll(n - 1);
 	}
 }
@@ -58,7 +63,9 @@ void turnOffAll(int n)
 int main()
 {
 	int n;
-	cin >> n;
+	std::cin >> n;
+
 	turnOnAll(n);
+
 	return 0;
 }

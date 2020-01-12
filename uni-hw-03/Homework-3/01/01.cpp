@@ -1,12 +1,10 @@
 #include <iostream>
 #include <algorithm>
 
-using namespace std;
-
 int main()
 {
 	int n;
-	cin >> n;
+	std::cin >> n;
 
 	int* start = new int[n];
 	int* end = new int[n];
@@ -16,10 +14,10 @@ int main()
 	for (unsigned i = 0; i < n; ++i)
 	{
 		lectures[i] = i;
-		cin >> start[i] >> end[i];
+		std::cin >> start[i] >> end[i];
 	}
 
-	sort(lectures, lectures + n, [&](int a, int b) -> bool {
+	std::sort(lectures, lectures + n, [&](int a, int b) -> bool {
 		if (end[a] == end[b])
 			return start[a] < start[b];
 		else
@@ -35,13 +33,15 @@ int main()
 		{
 			if (start[lectures[i]] > end[lectures[j]]) // if we can visit them
 			{
-				checkpoints[i] = ((checkpoints[i] < (checkpoints[j] + 1)) ? (checkpoints[j] + 1) : checkpoints[i]); // most optimal
+				// most optimal
+				checkpoints[i] = ((checkpoints[i] < (checkpoints[j] + 1)) ? (checkpoints[j] + 1) : checkpoints[i]); 
 			}
 		}
 
 		answer = ((answer < checkpoints[i]) ? checkpoints[i] : answer);
 	}
 
-	cout << answer << endl;
+	std::cout << answer << std::endl;
+
 	return 0;
 }
