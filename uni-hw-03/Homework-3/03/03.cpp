@@ -3,26 +3,70 @@
 
 using namespace std;
 
+// if first -> remove the space after
+// if end -> remove space before
+// if in the middle -> remove space before
+
 char* remove(char* str, char* word)
 {
 	int lenText = strlen(str);
 	int lenWord = strlen(word);
-	char* result = new char[lenText];
+
+	char* result = new char[lenText]; // this will be the result arr
+	char* ptr;
+	char* search = str;
 	int newTextLength = 0;
-	for (int i = 0; i < lenText; ++i)
+	bool end = false;
+	// find the word 
+	//while (!end)
+	//{
+	//	ptr = strstr(search, word);
+
+	//	if (ptr)
+	//	{
+	//		// is first
+	//		if (strcmp(ptr, str) != 0)
+	//		{
+	//			cout << "emi ne e";
+	//		}
+	//		else // if it is first and is not part of another word
+	//		{
+	//			// if the next one is a letter or number
+	//			if (!(((ptr + lenWord)[0] >= 'a' && (ptr + lenWord)[0] <= 'z') ||
+	//				((ptr + lenWord)[0] >= 'A' && (ptr + lenWord)[0] <= 'Z') ||
+	//				((ptr + lenWord)[0] >= '0' && (ptr + lenWord)[0] <= '9')))
+	//			{
+	//				// we can remove it
+	//			}
+
+	//		}
+	//		// is last
+	//		// is middle
+	//		cout << "yes";
+	//		search = ptr + lenWord;
+	//	}
+	//	else
+	//	{
+	//		end = true;
+	//	}
+
+
+	for (int i = 0; i < lenText; ++i) // text
 	{
-		bool goodChar = false;
+		bool isMatch = false;
 		for (int j = 0; j < lenWord; ++j)
 		{
 			if (str[i + j] == word[j])
+			{
 				continue;
+			}
 			else
 			{
-				goodChar = true;
+				isMatch = true;
 				break;
 			}
 		}
-		if (goodChar)
+		if (isMatch)
 		{
 			if (not (result[newTextLength] == ' ' and str[i] == ' '))
 				result[newTextLength++] = str[i];
@@ -32,8 +76,12 @@ char* remove(char* str, char* word)
 			i += lenWord - 1; // skip the pattern (-1 cuz of the loop step = ++i)
 		}
 	}
-	result[newTextLength] = '\0';
-	return result;
+}
+
+
+
+result[newTextLength] = '\0';
+return result;
 }
 
 char* replace(char* str, char* pattern, char* replaced)
@@ -74,9 +122,9 @@ char* replace(char* str, char* pattern, char* replaced)
 
 int main()
 {
-	char str[] = "AAAAAAAAAAAAA";
-	char word1[] = "AAAAAAAAAAAA";
-	char word2[] = "BBBBBBBBBBBB";
-	cout << remove(str, word1) << endl << replace(str, word1, word2);
+	char str[] = "I love math catsand cats cats programming.";
+	char word1[] = "cats";
+	char word2[] = "dogs";
+	cout << remove(str, word1) << endl;// << replace(str, word1, word2);
 	return 0;
 }
