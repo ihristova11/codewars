@@ -22,25 +22,26 @@ char* remove(char* str, char* word)
 
 	for (int i = 0; i < lenText; ++i) // text
 	{
-		bool isDiff = false;
-		bool isWord = true;
+		bool notMatched = false;
 		for (int j = 0; j < lenWord; ++j)
 		{
 			if (str[i + j] != word[j])
 			{
-				isDiff = true;
+				notMatched = true;
 				break;
 			}
 		}
-		if (isDiff) // pattern found or diff symbol
+
+		if (notMatched) // diff symbol
 		{
-			if (newTextLength > 0)
+			if (newTextLength == 0 && str[i] == ' ') // remove from start
 			{
-				if (!(result[newTextLength - 1] == ' ' && str[i] == ' '))
-				{
-					result[newTextLength++] = str[i];
-					cout << result << endl;
-				}
+				continue;
+			}
+			if (!(result[newTextLength - 1] == ' ' && str[i] == ' '))
+			{
+				result[newTextLength++] = str[i];
+				cout << result << endl;
 			}
 		}
 		else
@@ -66,7 +67,6 @@ char* remove(char* str, char* word)
 			else
 			{
 				result[newTextLength++] = str[i];
-				cout << result << endl;
 			}
 		}
 	}
@@ -113,9 +113,10 @@ char* replace(char* str, char* pattern, char* replaced)
 
 int main()
 {
-	char str[] = "one one one some one someone";
-	char word1[] = "cats";
+	char str[] = "one one one someone one one some one one one.";
+	char word1[] = "one";
 	char word2[] = "dogs";
 	cout << "result:" << remove(str, word1) << endl;// << replace(str, word1, word2);
+	//cout << replace(str, word1, word2) << endl;
 	return 0;
 }
