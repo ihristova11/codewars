@@ -3,21 +3,18 @@
 
 using namespace std;
 
-// if first -> remove the space after
-// if end -> remove space before
-// if in the middle -> remove space before
-
 bool isAlphaNumeric(char a)
 {
 	return((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'));
 }
 
+// removes words and trims start & end
 char* remove(char* str, char* word)
 {
 	int lenText = strlen(str);
 	int lenWord = strlen(word);
 	bool flag = true;
-	char* result = new char[lenText]; // this will be the result arr
+	char* result = new char[lenText];
 	int newTextLength = 0;
 
 	for (int i = 0; i < lenText; ++i) // text
@@ -38,10 +35,13 @@ char* remove(char* str, char* word)
 			{
 				continue;
 			}
-			if (!(result[newTextLength - 1] == ' ' && str[i] == ' '))
+			else if (result[newTextLength - 1] == ' ' && !isAlphaNumeric(str[i]))
+			{
+				result[newTextLength - 1] = str[i];
+			}
+			else if (!(result[newTextLength - 1] == ' ' && str[i] == ' '))
 			{
 				result[newTextLength++] = str[i];
-				cout << result << endl;
 			}
 		}
 		else
@@ -61,7 +61,6 @@ char* remove(char* str, char* word)
 
 			if (flag)
 			{
-				cout << result << endl;
 				i += lenWord - 1; // skip the pattern (-1 cuz of the loop step = ++i)
 			}
 			else
@@ -72,6 +71,10 @@ char* remove(char* str, char* word)
 	}
 
 	result[newTextLength] = '\0';
+	if (result[newTextLength - 1] == ' ') // trim end
+	{
+		result[newTextLength - 1] = '\0';
+	}
 	return result;
 }
 
@@ -81,31 +84,55 @@ char* replace(char* str, char* pattern, char* replaced)
 	int lenPattern = strlen(pattern);
 	int lenReplaced = strlen(replaced);
 	int maxNewChars;
+	bool flag = true;
 	if (lenPattern > lenReplaced) maxNewChars = 0;
 	else maxNewChars = (lenTxt / lenPattern) * (lenReplaced - lenPattern);
 	char* result = new char[lenTxt + maxNewChars];
 	int newTextLength = 0;
 	for (int i = 0; i < lenTxt; ++i)
 	{
-		bool matched = false; // false if current char is not the beginning of a match of the pattern 
+		bool notMatched = false; // false if current char is not the beginning of a match of the pattern 
 		for (int j = 0; j < lenPattern && i + j < lenTxt; ++j)
 		{
 			if (str[i + j] == pattern[j]) // still it is not guaranteed that the pattern is found
 				continue;
 			else
 			{
-				matched = true; // first difference found so our char is not beginning of a match
+				notMatched = true; // first difference found so our char is not beginning of a match
 				break;
 			}
 		}
-		if (!matched)
+		if (!notMatched)
 		{
-			for (int j = 0; j < lenReplaced; ++j)
-				result[newTextLength++] = replaced[j]; // add replaced word in the result
-			i += lenPattern - 1; // skip the pattern (-1 cuz of the loop step = ++i)
+			flag = true;
+			// check if word
+			if (i - 1 > 0)
+			{
+				// check prev
+				flag = flag & (!isAlphaNumeric(str[i - 1]));
+			}
+			if (i + lenPattern < lenTxt)
+			{
+				// check next
+				flag = flag & (!isAlphaNumeric(str[i + lenPattern]));
+			}
+
+			if (flag)
+			{
+				for (int j = 0; j < lenReplaced; ++j)
+					result[newTextLength++] = replaced[j]; // add replaced word in the result
+				i += lenPattern - 1; // skip the pattern (-1 cuz of the loop step = ++i)
+			}
+			else
+			{
+				result[newTextLength++] = str[i];
+			}
+
 		}
 		else
+		{
 			result[newTextLength++] = str[i];
+		}
 	}
 	result[newTextLength] = '\0';
 	return result;
@@ -113,10 +140,13 @@ char* replace(char* str, char* pattern, char* replaced)
 
 int main()
 {
-	char str[] = "one one one someone one one some one one one.";
-	char word1[] = "one";
+	// test examples 
+	//char str[] = "I love math cats and programming.";
+	char str[] = "one one someOne one One some one One one.soone  One";
+	char word1[] = "One";
+
 	char word2[] = "dogs";
-	cout << "result:" << remove(str, word1) << endl;// << replace(str, word1, word2);
-	//cout << replace(str, word1, word2) << endl;
+	//cout << "result:" << remove(str, word1) <<"|"<< endl;
+	cout << replace(str, word1, word2) << endl;
 	return 0;
 }
